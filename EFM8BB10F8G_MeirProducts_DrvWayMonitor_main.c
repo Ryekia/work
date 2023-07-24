@@ -250,7 +250,6 @@ void initZones(void)
   zones[MANUAL].soundStatus = SOUND_STAT_COMPLETE;
   zones[MANUAL].zoneStatus = ZONE_STAT_READY;
 
-  zones[LOBATT].input = INPUT_LO_BATT;
   zones[LOBATT].soundMode = SOUND_MODE_DONG;
   zones[LOBATT].soundStatus = SOUND_STAT_COMPLETE;
 }
@@ -381,16 +380,14 @@ void lowBattCheck(void)
 			if (getInput(INPUT_LO_BATT) == INPUT_HIGH)
 			{
 				LoBattLED = 1;
-				switch (LoBattLED)
+				switch(LoBattLED)
 				{
 					case SOUND_STAT_IDLE:
 					case SOUND_STAT_COMPLETE:
-						break;
 					case SOUND_STAT_ARMED:
-						setSoundMode = (LOBATT.soundMode);
+						setSoundMode(LOBATT.soundMode);
 						LOBATT.soundStatus = SOUND_STAT_FIRED;
 						break;
-
 					case SOUND_STAT_FIRED:
 						if (getSoundMode() == SOUND_MODE_IDLE)
 						{
